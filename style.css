@@ -1,304 +1,254 @@
-/* --- BIẾN MÀU SẮC --- */
-:root {
-    --primary-color: #007bff;
-    --secondary-color: #0056b3;
-    --text-color: #333;
-    --bg-light: #ffffff;
-    --bg-dark: #1a1a1a;
-    --transition: all 0.3s ease;
-}
+/**
+ * SCRIPT.JS — Trần Huy Personal Portfolio
+ * Chức năng:
+ *  1. Sticky header + shadow khi cuộn
+ *  2. Mobile nav toggle (icon quyển sách)
+ *  3. Cuộn mượt đến section khi click nav
+ *  4. Active nav link theo section đang xem (Intersection Observer)
+ *  5. Scroll reveal animation (Intersection Observer)
+ *  6. Animate progress bar kỹ năng khi vào viewport
+ *  7. Nút Back To Top
+ *  8. SPA mode: click nav → chỉ hiện section đó
+ */
 
-/* --- RESET & CHUNG --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+'use strict';
 
-html {
-    scroll-behavior: smooth; /* cuộn mượt */
-}
+/* ---------------------------------------------------------------
+   HELPER: Lấy phần tử DOM
+--------------------------------------------------------------- */
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
 
-body {
-    font-family: 'Be Vietnam Pro', sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--bg-light);
-}
 
-.container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+/* ---------------------------------------------------------------
+   1. STICKY HEADER — thêm class .scrolled khi cuộn > 10px
+--------------------------------------------------------------- */
+const siteHeader = $('#site-header');
 
-/* --- HEADER --- */
-header {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 15px 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+function handleHeaderScroll() {
+  if (window.scrollY > 10) {
+    siteHeader.classList.add('scrolled');
+  } else {
+    siteHeader.classList.remove('scrolled');
+  }
 }
+window.addEventListener('scroll', handleHeaderScroll, { passive: true });
+handleHeaderScroll(); // gọi ngay khi load tránh flash
 
-/* container inside header that forces logo left and nav right */
-.header-content {
-    display: flex;
-    justify-content: space-between; /* Ép 2 đầu */
-    align-items: center;
-    width: 100%;
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
 
-/* Đảm bảo nav-menu luôn hiển thị trên Desktop */
-.nav-menu {
-    display: flex;
-}
+/* ---------------------------------------------------------------
+   2. MOBILE NAV TOGGLE
+   Nút icon "quyển sách" mở/đóng nav trên mobile
+--------------------------------------------------------------- */
+const navToggle = $('#navToggle');
+const mainNav   = $('#mainNav');
 
-.logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    cursor: pointer;
-    transition: var(--transition);
-}
+navToggle.addEventListener('click', () => {
+  const isOpen = navToggle.classList.toggle('open');
+  mainNav.classList.toggle('open', isOpen);
+  navToggle.setAttribute('aria-expanded', isOpen);
+});
 
-.logo:hover {
-    transform: scale(1.15); /* hiệu ứng phóng to */
-}
+// Đóng nav khi click ra ngoài
+document.addEventListener('click', (e) => {
+  if (!siteHeader.contains(e.target)) {
+    navToggle.classList.remove('open');
+    mainNav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
+});
 
-.nav-menu ul {
-    display: flex;
-    list-style: none;
-}
 
-.nav-menu ul li {
-    margin-left: 30px;
-}
+/* ---------------------------------------------------------------
+   3 & 8. NAV CLICK → SCROLL + SPA MODE
+   Click nav: cuộn đến section VÀ chỉ hiển thị section đó
+--------------------------------------------------------------- */
+const allSections = $$('.section');
+const navLinks    = $$('.nav-link');
 
-.nav-menu ul li a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 500;
-    transition: var(--transition);
-    position: relative;
-}
+/**
+ * Chuyển sang SPA mode: chỉ hiển thị section có id = sectionId
+ */
+function showSection(sectionId) {
+  // Bật chế độ SPA để CSS ẩn toàn bộ sections
+  document.body.classList.add('spa-mode');
 
-.nav-menu ul li a:hover, .nav-menu ul li a.active {
-    color: var(--primary-color);
-}
+  // Ẩn tất cả, rồi hiện đúng section
+  allSections.forEach(sec => sec.classList.remove('active-section'));
+  const target = document.getElementById(sectionId);
+  if (target) {
+    target.classList.add('active-section');
 
-/* --- SECTIONS --- */
-.section {
-    padding: 100px 0;
-    min-height: 100vh;
-    display: none; /* hiển thị bằng JS */
-    animation: fadeIn 0.8s ease;
-}
+    // Cuộn về đầu trang (vì section đầu luôn bắt đầu từ dưới header)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
-/* hiển thị khi JS thêm class "active" */
-.section.active {
-    display: flex !important; /* Phải khớp với class 'active' trong JS */
-    flex-direction: column;
-    justify-content: center;
-    opacity: 1;
-    animation: fadeIn 0.6s forwards ease-out;
-}
+    // Re-trigger reveal animations cho section vừa hiện
+    const reveals = target.querySelectorAll('.reveal-fade, .reveal-up, .reveal-scale');
+    reveals.forEach((el, i) => {
+      el.classList.remove('visible');
+      setTimeout(() => el.classList.add('visible'), 80 + i * 80);
+    });
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Home Section */
-.home-content {
-    text-align: center;
-}
-
-.avatar {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    border: 5px solid var(--primary-color);
-    margin-bottom: 20px;
-    transition: var(--transition);
-}
-
-.avatar:hover {
-    transform: rotate(5deg);
-}
-
-.highlight {
-    color: var(--primary-color);
-}
-
-.btn-contact {
-    display: inline-block;
-    padding: 12px 30px;
-    background: var(--primary-color);
-    color: white;
-    text-decoration: none;
-    border-radius: 25px;
-    margin-top: 20px;
-    transition: var(--transition);
-}
-
-.btn-contact:hover {
-    background: var(--secondary-color);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,123,255,0.4);
-}
-
-/* Introduce Section */
-.section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-}
-
-.intro-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-}
-
-.skill-item {
-    margin-bottom: 15px;
-}
-
-.progress-bar {
-    background: #eee;
-    height: 10px;
-    border-radius: 5px;
-    margin-top: 5px;
-}
-
-.progress {
-    background: var(--primary-color);
-    height: 100%;
-    border-radius: 5px;
-    transition: width 1s ease-in-out;
-}
-
-/* Hobby Section */
-.hobby-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-.hobby-card {
-    background: white;
-    padding: 30px;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    transition: var(--transition);
-}
-
-.hobby-card i {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 15px;
-}
-
-.hobby-card:hover {
-    transform: translateY(-10px);
-    background: var(--primary-color);
-    color: white;
-}
-
-.hobby-card:hover i {
-    color: white;
-}
-
-/* --- FOOTER --- */
-footer {
-    background: var(--bg-dark);
-    color: white;
-    padding: 40px 0;
-    text-align: center;
-}
-
-.footer-socials {
-    margin-bottom: 20px;
-}
-
-.footer-socials a {
-    color: #ccc;
-    margin: 0 15px;
-    text-decoration: none;
-    transition: var(--transition);
-}
-
-.footer-socials a:hover {
-    color: var(--primary-color);
-}
-
-/* Back to Top */
-#back-to-top {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: var(--primary-color);
-    color: white;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    opacity: 0;
-    transition: var(--transition);
-    z-index: 1001;
-}
-
-#back-to-top.show {
-    opacity: 1;
-}
-
-/* --- RESPONSIVE --- */
-.menu-toggle {
-    display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
+    // Re-trigger skill bars nếu là section introduce
+    if (sectionId === 'introduce') {
+      setTimeout(animateSkillBars, 300);
     }
+  }
 
-    .nav-menu {
-        display: none; /* bật bằng JS */
-        position: absolute;
-        top: 70px;
-        right: 20px;
-        background: white;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        width: 200px;
-        border-radius: 10px;
-    }
-
-    .nav-menu.active {
-        display: block;
-    }
-
-    .nav-menu ul {
-        flex-direction: column;
-        padding: 10px 0;
-    }
-
-    .nav-menu ul li {
-        margin: 10px 20px;
-    }
-
-    .intro-grid {
-        grid-template-columns: 1fr;
-    }
+  // Cập nhật active link
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.dataset.section === sectionId);
+  });
 }
+
+// Gắn sự kiện click cho từng nav link
+navLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const sectionId = link.dataset.section;
+
+    // Đóng mobile nav nếu đang mở
+    navToggle.classList.remove('open');
+    mainNav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+
+    showSection(sectionId);
+  });
+});
+
+// Click logo → về Home
+$('.logo').addEventListener('click', (e) => {
+  e.preventDefault();
+  showSection('home');
+});
+
+// Click scroll-hint → về Introduce
+const scrollHint = $('.scroll-hint');
+if (scrollHint) {
+  scrollHint.addEventListener('click', (e) => {
+    e.preventDefault();
+    showSection('introduce');
+  });
+}
+
+
+/* ---------------------------------------------------------------
+   4. ACTIVE NAV (scroll-based) — chỉ hoạt động khi KHÔNG phải SPA mode
+--------------------------------------------------------------- */
+const sectionObserver = new IntersectionObserver(
+  (entries) => {
+    if (document.body.classList.contains('spa-mode')) return;
+
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.dataset.section === id);
+        });
+      }
+    });
+  },
+  { rootMargin: '-40% 0px -40% 0px', threshold: 0 }
+);
+
+allSections.forEach(sec => sectionObserver.observe(sec));
+
+
+/* ---------------------------------------------------------------
+   5. SCROLL REVEAL
+   Sử dụng IntersectionObserver để thêm class .visible
+   khi phần tử xuất hiện trong viewport
+--------------------------------------------------------------- */
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target); // chỉ animate một lần
+      }
+    });
+  },
+  { threshold: 0.15 }
+);
+
+// Observe tất cả phần tử cần reveal
+$$('.reveal-fade, .reveal-up, .reveal-scale').forEach(el => {
+  revealObserver.observe(el);
+});
+
+
+/* ---------------------------------------------------------------
+   6. PROGRESS BAR KỸ NĂNG — animate width khi vào viewport
+--------------------------------------------------------------- */
+let skillsAnimated = false;
+
+function animateSkillBars() {
+  if (skillsAnimated) return;
+
+  $$('.skill-item').forEach(item => {
+    const percent = parseInt(item.dataset.percent, 10);
+    const fill    = item.querySelector('.skill-fill');
+    if (fill) {
+      // Dùng requestAnimationFrame để đảm bảo CSS transition chạy
+      requestAnimationFrame(() => {
+        fill.style.width = percent + '%';
+      });
+    }
+  });
+
+  skillsAnimated = true;
+}
+
+// Observer riêng cho section introduce
+const skillSection = $('#introduce');
+if (skillSection) {
+  const skillObserver = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        animateSkillBars();
+        skillObserver.disconnect();
+      }
+    },
+    { threshold: 0.2 }
+  );
+  skillObserver.observe(skillSection);
+}
+
+
+/* ---------------------------------------------------------------
+   7. BACK TO TOP
+   Hiển thị nút khi cuộn > 300px, cuộn lên đầu khi click
+--------------------------------------------------------------- */
+const backToTopBtn = $('#backToTop');
+
+function handleBackToTop() {
+  if (window.scrollY > 300) {
+    backToTopBtn.classList.add('visible');
+  } else {
+    backToTopBtn.classList.remove('visible');
+  }
+}
+
+window.addEventListener('scroll', handleBackToTop, { passive: true });
+
+backToTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Nếu đang SPA mode, hiện lại section home
+  if (document.body.classList.contains('spa-mode')) {
+    showSection('home');
+  }
+});
+
+
+/* ---------------------------------------------------------------
+   KHỞI TẠO
+   Khi trang load: hiện section Home, trigger reveals
+--------------------------------------------------------------- */
+window.addEventListener('DOMContentLoaded', () => {
+  // Kích hoạt SPA mode ngay từ đầu
+  showSection('home');
+
+  // Đảm bảo header đúng trạng thái
+  handleHeaderScroll();
+});
