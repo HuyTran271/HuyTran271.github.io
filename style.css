@@ -1,87 +1,290 @@
-/* HEADER - FIX LOGO TRÁI, NAV PHẢI */
-.navbar { 
-    position: fixed; 
-    top: 0; 
-    left: 0;
-    width: 100%; 
-    height: 80px; /* Tăng độ cao một chút cho thoáng */
-    background: #ffffff; 
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    display: flex; 
-    align-items: center; 
-    z-index: 1000;
+/* --- BIẾN MÀU SẮC --- */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #0056b3;
+    --text-color: #333;
+    --bg-light: #ffffff;
+    --bg-dark: #1a1a1a;
+    --transition: all 0.3s ease;
 }
 
-.nav-container { 
-    display: flex; 
-    justify-content: space-between; /* Đẩy Logo sang trái, Nav sang phải */
-    align-items: center; 
-    width: 100%;
-    max-width: 1200px; /* Giới hạn độ rộng nội dung */
+/* --- RESET & CHUNG --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-light);
+}
+
+.container {
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 0 30px;
+    padding: 0 20px;
 }
 
-.logo { 
-    font-size: 1.8rem; 
-    font-weight: 800; 
-    color: #007bff; 
-    text-decoration: none; 
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-    display: inline-block;
+/* --- HEADER --- */
+header {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.logo:hover { 
-    transform: scale(1.2); /* Phóng to khi hover theo yêu cầu */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.nav-links {
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.logo:hover {
+    transform: scale(1.15); /* Hiệu ứng phóng to logo */
+}
+
+.nav-menu ul {
+    display: flex;
+    list-style: none;
+}
+
+.nav-menu ul li {
+    margin-left: 30px;
+}
+
+.nav-menu ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+}
+
+.nav-menu ul li a:hover, .nav-menu ul li a.active {
+    color: var(--primary-color);
+}
+
+/* --- SECTIONS --- */
+.section {
+    padding: 100px 0;
+    min-height: 100vh;
+    display: none; /* Ẩn mặc định để điều khiển bằng JS */
+    animation: fadeIn 0.8s ease;
+}
+
+.section.active-section {
     display: flex;
     align-items: center;
 }
 
-.nav-links .nav-item {
-    text-decoration: none; 
-    color: #333; 
-    font-weight: 600;
-    margin-left: 35px; /* Khoảng cách giữa các menu item */
-    transition: 0.3s;
-    font-size: 1rem;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.nav-links .nav-item:hover, 
-.nav-links .nav-item.active { 
-    color: #007bff; 
+/* Home Section */
+.home-content {
+    text-align: center;
 }
 
-/* MOBILE RESPONSIVE FIX */
+.avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 5px solid var(--primary-color);
+    margin-bottom: 20px;
+    transition: var(--transition);
+}
+
+.avatar:hover {
+    transform: rotate(5deg);
+}
+
+.highlight {
+    color: var(--primary-color);
+}
+
+.btn-contact {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    margin-top: 20px;
+    transition: var(--transition);
+}
+
+.btn-contact:hover {
+    background: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+}
+
+/* Introduce Section */
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+.intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.skill-item {
+    margin-bottom: 15px;
+}
+
+.progress-bar {
+    background: #eee;
+    height: 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.progress {
+    background: var(--primary-color);
+    height: 100%;
+    border-radius: 5px;
+    transition: width 1s ease-in-out;
+}
+
+/* Hobby Section */
+.hobby-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.hobby-card {
+    background: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: var(--transition);
+}
+
+.hobby-card i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.hobby-card:hover {
+    transform: translateY(-10px);
+    background: var(--primary-color);
+    color: white;
+}
+
+.hobby-card:hover i {
+    color: white;
+}
+
+/* --- FOOTER --- */
+footer {
+    background: var(--bg-dark);
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer-socials {
+    margin-bottom: 20px;
+}
+
+.footer-socials a {
+    color: #ccc;
+    margin: 0 15px;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-socials a:hover {
+    color: var(--primary-color);
+}
+
+/* Back to Top */
+#back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--primary-color);
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: var(--transition);
+    z-index: 1001;
+}
+
+#back-to-top.show {
+    opacity: 1;
+}
+
+/* --- RESPONSIVE --- */
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
-    .menu-mobile { 
-        display: block; /* Hiện icon quyển sách */
-        order: 2; /* Đảm bảo nút menu nằm sau cùng bên phải */
+    .menu-toggle {
+        display: block;
     }
 
-    .logo {
-        order: 1; /* Logo luôn ưu tiên bên trái */
+    .nav-menu {
+        display: none; /* Sẽ được hiển thị qua JS khi click */
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background: white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        width: 200px;
+        border-radius: 10px;
     }
 
-    .nav-links { 
-        display: none; /* Ẩn menu ngang trên mobile */
-        position: absolute; 
-        top: 80px; 
-        left: 0; 
-        width: 100%; 
-        background: white; 
-        flex-direction: column; 
-        padding: 20px 0;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+    .nav-menu.active {
+        display: block;
     }
 
-    .nav-links.show { 
-        display: flex; /* Hiện khi bấm vào quyển sách */
+    .nav-menu ul {
+        flex-direction: column;
+        padding: 10px 0;
     }
 
-    .nav-links .nav-item { 
-        margin: 15px 0; 
+    .nav-menu ul li {
+        margin: 10px 20px;
+    }
+
+    .intro-grid {
+        grid-template-columns: 1fr;
     }
 }
