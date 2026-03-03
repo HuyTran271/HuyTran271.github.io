@@ -1,74 +1,67 @@
-// Đợi HTML tải xong mới chạy script
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Lấy các element cần thiết
+    // --- 1. ĐIỀU HƯỚNG SPA (SINGLE PAGE APPLICATION) ---
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const navMenu = document.getElementById('navMenu');
-    const backToTopBtn = document.getElementById('backToTopBtn');
     const logo = document.querySelector('.logo');
 
-    // 1. LOGIC SPA: Chuyển Section khi click Nav
+    // Hàm chuyển đổi Section
     function switchSection(targetId) {
-        // Xóa class active ở tất cả các section và nav link
+        // Xóa trạng thái active của toàn bộ section và nav item
         sections.forEach(sec => sec.classList.remove('active'));
         navLinks.forEach(link => link.classList.remove('active'));
 
-        // Thêm class active cho section được chọn
+        // Thêm trạng thái active cho section và nav item được chọn
         const targetSection = document.getElementById(targetId);
-        if(targetSection) {
-            targetSection.classList.add('active');
-        }
+        const targetNav = document.querySelector(`.nav-link[data-target="${targetId}"]`);
+        
+        if (targetSection) targetSection.classList.add('active');
+        if (targetNav) targetNav.classList.add('active');
 
-        // Thêm class active cho nav link tương ứng
-        const targetLink = document.querySelector(`.nav-link[data-target="${targetId}"]`);
-        if(targetLink) {
-            targetLink.classList.add('active');
-        }
-
-        // Cuộn mượt lên đầu trang sau khi chuyển tab
+        // Cuộn mượt lên đầu nội dung sau khi chuyển trang
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        // Tự động đóng menu trên mobile sau khi click
+        // Tự động đóng menu trên Mobile (nếu đang mở)
         navMenu.classList.remove('active');
     }
 
-    // Lắng nghe sự kiện click trên các nav links
+    // Gán sự kiện click cho các link trên Navbar
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault(); // Ngăn hành vi nhảy trang mặc định
+            e.preventDefault(); // Ngăn trình duyệt nhảy link mặc định
             const targetId = this.getAttribute('data-target');
             switchSection(targetId);
         });
     });
 
-    // Click vào Logo thì quay về Home
+    // Click vào Logo -> Về Home
     logo.addEventListener('click', (e) => {
         e.preventDefault();
         switchSection('home');
     });
 
-    // 2. LOGIC MOBILE MENU: Đóng/Mở menu quyển sách
+    // --- 2. MENU MOBILE (Icon Quyển sách) ---
+    const mobileMenuBtn = document.getElementById('mobile-menu');
+    const navMenu = document.getElementById('nav-menu');
+
     mobileMenuBtn.addEventListener('click', () => {
         navMenu.classList.toggle('active');
     });
 
-    // 3. LOGIC BACK TO TOP BUTTON
-    // Hiện nút khi cuộn xuống 100px
+    // --- 3. NÚT LÊN ĐẦU TRANG (Back to top) ---
+    const backToTopBtn = document.getElementById('back-to-top');
+
+    // Hiện/Ẩn nút khi cuộn
     window.addEventListener('scroll', () => {
-        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-            backToTopBtn.style.display = "block";
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.add('show');
         } else {
-            backToTopBtn.style.display = "none";
+            backToTopBtn.classList.remove('show');
         }
     });
 
-    // Click nút thì cuộn mượt lên đầu
+    // Click nút để cuộn lên mượt mà
     backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });
