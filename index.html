@@ -1,131 +1,331 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trần Huy | Software Engineer Portfolio</title>
-    <!-- font tiếng Việt hiện đại -->
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trần Huy | Software Engineer</title>
+
+  <!-- Google Fonts: Be Vietnam Pro cho tiếng Việt, Syne cho display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+
+  <!-- File CSS chính -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- HEADER cố định, logo + nav -->
-    <header id="header">
-        <div class="container header-content">
-            <div class="logo">Trần Huy</div>
+  <!-- ===================== HEADER ===================== -->
+  <!-- Header cố định (sticky), chứa logo và nav -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner container">
 
-            <!-- biểu tượng mobile menu (quyển sách) -->
-            <div class="menu-toggle" id="mobile-menu">
-                <i class="fas fa-book"></i>
-            </div>
+      <!-- Logo chữ, phóng to khi hover -->
+      <a href="#home" class="logo" aria-label="Trang chủ Trần Huy">Trần Huy</a>
 
-            <nav class="nav-menu">
-                <ul>
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#introduce" class="nav-link">Introduce</a></li>
-                    <li><a href="#hobby" class="nav-link">Hobby</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+      <!-- Nút burger (icon quyển sách) cho mobile -->
+      <button class="nav-toggle" id="navToggle" aria-label="Mở menu" aria-expanded="false">
+        <!-- Ba gạch mô phỏng cuốn sách / burger -->
+        <span class="book-line"></span>
+        <span class="book-line"></span>
+        <span class="book-line"></span>
+      </button>
 
-    <!-- MAIN chứa 3 section tương ứng nav -->
-    <main>
-        <!-- Home Section -->
-        <section id="home" class="section active">
-            <div class="container home-content">
-                <div class="avatar-wrapper">
-                    <img src="https://via.placeholder.com/200" alt="Trần Huy Avatar" class="avatar">
-                </div>
-                <h1>Xin chào, mình là <span class="highlight">Trần Huy</span></h1>
-                <p class="subtitle">Sinh viên CNTT | Định hướng Software Engineer</p>
-                <p class="description">Đam mê xây dựng các sản phẩm phần mềm chất lượng và giải quyết các bài toán kỹ thuật phức tạp.</p>
-                <a href="mailto:contact@tranhuy.com" class="btn-contact">Contact Me</a>
-            </div>
-        </section>
+      <!-- Navigation chính -->
+      <nav class="main-nav" id="mainNav" role="navigation" aria-label="Menu chính">
+        <ul class="nav-list">
+          <li><a href="#home"     class="nav-link active" data-section="home">Home</a></li>
+          <li><a href="#introduce" class="nav-link"        data-section="introduce">Introduce</a></li>
+          <li><a href="#hobby"    class="nav-link"        data-section="hobby">Hobby</a></li>
+        </ul>
+      </nav>
 
-        <!-- Introduce Section -->
-        <section id="introduce" class="section">
-            <div class="container">
-                <h2 class="section-title">Giới thiệu</h2>
-                <div class="intro-grid">
-                    <div class="intro-text">
-                        <p>Mình hiện là sinh viên chuyên ngành Công nghệ thông tin. Với tư duy logic tốt và sự kiên trì, mình đang tập trung nghiên cứu sâu về kiến trúc phần mềm và quy trình phát triển sản phẩm chuyên nghiệp.</p>
-                    </div>
-                    <div class="skills-container">
-                        <h3>Kỹ năng chuyên môn</h3>
-                        <!-- các progress bar -->
-                        <div class="skill-item">
-                            <span>HTML5/CSS3</span>
-                            <div class="progress-bar"><div class="progress" style="width: 90%;"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span>JavaScript</span>
-                            <div class="progress-bar"><div class="progress" style="width: 85%;"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span>Java</span>
-                            <div class="progress-bar"><div class="progress" style="width: 80%;"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span>MySQL</span>
-                            <div class="progress-bar"><div class="progress" style="width: 75%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Hobby Section -->
-        <section id="hobby" class="section">
-            <div class="container">
-                <h2 class="section-title">Sở thích</h2>
-                <div class="hobby-grid">
-                    <div class="hobby-card">
-                        <i class="fas fa-code"></i>
-                        <h3>Coding</h3>
-                        <p>Khám phá các công nghệ mới mỗi ngày.</p>
-                    </div>
-                    <div class="hobby-card">
-                        <i class="fas fa-gamepad"></i>
-                        <h3>Game Dev</h3>
-                        <p>Thử thách bản thân với logic game.</p>
-                    </div>
-                    <div class="hobby-card">
-                        <i class="fas fa-book-open"></i>
-                        <h3>Reading</h3>
-                        <p>Đọc sách về tư duy và kỹ thuật.</p>
-                    </div>
-                    <div class="hobby-card">
-                        <i class="fas fa-dumbbell"></i>
-                        <h3>Gym</h3>
-                        <p>Rèn luyện sức khỏe và kỷ luật.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="footer-socials">
-                <a href="#"><i class="fab fa-github"></i> GitHub</a>
-                <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
-                <a href="mailto:huy@example.com"><i class="fas fa-envelope"></i> Email</a>
-            </div>
-            <p class="copyright">Copyright © 2026 Trần Huy - Minimal Design</p>
-        </div>
-    </footer>
-
-    <!-- nút mũi tên lên đầu trang -->
-    <div id="back-to-top">
-        <i class="fas fa-arrow-up"></i>
     </div>
+  </header>
+  <!-- ==================== /HEADER ==================== -->
 
-    <script src="script.js"></script>
+
+  <!-- ====================== MAIN ===================== -->
+  <main>
+
+    <!-- -------- SECTION: HOME -------- -->
+    <section id="home" class="section section-home">
+
+      <!-- Lớp nền hiệu ứng lưới chấm -->
+      <div class="bg-grid" aria-hidden="true"></div>
+
+      <div class="container home-inner">
+
+        <!-- Cụm text bên trái -->
+        <div class="home-text">
+          <p class="home-greeting reveal-fade">Xin chào, mình là</p>
+          <h1 class="home-name reveal-up">Trần Huy</h1>
+          <p class="home-role reveal-up delay-1">
+            Sinh viên <span class="highlight">Công nghệ thông tin</span><br/>
+            Hướng tới trở thành <span class="highlight">Backend Engineer</span>
+          </p>
+          <p class="home-desc reveal-up delay-2">
+            Đam mê xây dựng phần mềm, yêu thích các hệ thống hiệu năng cao
+            và không ngừng học hỏi công nghệ mới mỗi ngày.
+          </p>
+          <a href="mailto:tranhuy@example.com" class="btn-contact reveal-up delay-3">
+            Contact Me
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Ảnh đại diện tròn bên phải -->
+        <div class="home-avatar reveal-scale delay-2">
+          <div class="avatar-ring"></div>
+          <div class="avatar-ring ring-2"></div>
+          <!-- Placeholder avatar – thay src bằng ảnh thật -->
+          <img
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
+            alt="Ảnh đại diện Trần Huy"
+            class="avatar-img"
+            width="220"
+            height="220"
+          />
+        </div>
+
+      </div>
+
+      <!-- Mũi tên cuộn xuống -->
+      <a href="#introduce" class="scroll-hint" aria-label="Cuộn xuống">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
+      </a>
+
+    </section>
+    <!-- -------- /SECTION: HOME -------- -->
+
+
+    <!-- -------- SECTION: INTRODUCE -------- -->
+    <section id="introduce" class="section section-introduce">
+      <div class="container">
+
+        <!-- Tiêu đề section -->
+        <div class="section-header reveal-up">
+          <span class="section-label">01 — Introduce</span>
+          <h2 class="section-title">Giới thiệu bản thân</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="introduce-grid">
+
+          <!-- Cột trái: đoạn giới thiệu -->
+          <div class="introduce-bio reveal-fade">
+            <p>
+              Mình là <strong>Trần Huy</strong>, sinh viên năm 3 ngành <strong>Công nghệ Thông tin</strong>.
+              Mình có niềm đam mê mạnh mẽ với lập trình, đặc biệt là phát triển phía backend —
+              nơi logic nghiệp vụ, cơ sở dữ liệu và hiệu năng hệ thống gặp nhau.
+            </p>
+            <p>
+              Mục tiêu của mình là trở thành một <strong>Software Engineer</strong> chuyên nghiệp,
+              có khả năng thiết kế và xây dựng các hệ thống phân tán, RESTful API và microservices
+              đáp ứng hàng triệu người dùng.
+            </p>
+            <p>
+              Ngoài code, mình thích đọc sách kỹ thuật, chơi game chiến thuật và luôn tìm kiếm
+              những thử thách mới để tự phát triển bản thân mỗi ngày.
+            </p>
+
+            <!-- Thông tin nhanh -->
+            <ul class="info-list">
+              <li><span class="info-icon">🎓</span> Đại học Tây Nguyên — Năm 2</li>
+              <li><span class="info-icon">📍</span> Đắk Lắk, Việt Nam</li>
+            </ul>
+          </div>
+
+          <!-- Cột phải: thanh kỹ năng -->
+          <div class="introduce-skills reveal-fade delay-1">
+            <h3 class="skills-title">Kỹ năng</h3>
+
+            <!-- Danh sách skill với progress bar -->
+            <div class="skill-list">
+
+              <div class="skill-item" data-percent="85">
+                <div class="skill-meta">
+                  <span class="skill-name">Java / Spring Boot</span>
+                  <span class="skill-percent">85%</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill"></div></div>
+              </div>
+
+              <div class="skill-item" data-percent="78">
+                <div class="skill-meta">
+                  <span class="skill-name">Python / Django</span>
+                  <span class="skill-percent">78%</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill"></div></div>
+              </div>
+
+              <div class="skill-item" data-percent="70">
+                <div class="skill-meta">
+                  <span class="skill-name">Node.js / Express</span>
+                  <span class="skill-percent">70%</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill"></div></div>
+              </div>
+
+              <div class="skill-item" data-percent="75">
+                <div class="skill-meta">
+                  <span class="skill-name">SQL / PostgreSQL</span>
+                  <span class="skill-percent">75%</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill"></div></div>
+              </div>
+
+              <div class="skill-item" data-percent="65">
+                <div class="skill-meta">
+                  <span class="skill-name">Docker / DevOps</span>
+                  <span class="skill-percent">65%</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill"></div></div>
+              </div>
+
+              <div class="skill-item" data-percent="60">
+                <div class="skill-meta">
+                  <span class="skill-name">HTML / CSS / JS</span>
+                  <span class="skill-percent">60%</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill"></div></div>
+              </div>
+
+            </div>
+            <!-- /skill-list -->
+          </div>
+
+        </div>
+        <!-- /introduce-grid -->
+
+      </div>
+    </section>
+    <!-- -------- /SECTION: INTRODUCE -------- -->
+
+
+    <!-- -------- SECTION: HOBBY -------- -->
+    <section id="hobby" class="section section-hobby">
+      <div class="container">
+
+        <!-- Tiêu đề section -->
+        <div class="section-header reveal-up">
+          <span class="section-label">02 — Hobby</span>
+          <h2 class="section-title">Sở thích</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <!-- Lưới 2×2 card sở thích -->
+        <div class="hobby-grid">
+
+          <!-- Card 1: Coding -->
+          <article class="hobby-card reveal-up delay-1">
+            <div class="card-icon-wrap">
+              <span class="card-icon">💻</span>
+            </div>
+            <h3 class="card-title">Coding</h3>
+            <p class="card-desc">
+              Mình thích giải quyết các bài toán thuật toán, đóng góp open-source
+              và xây dựng side project mỗi cuối tuần.
+            </p>
+          </article>
+
+          <!-- Card 2: Học hỏi -->
+          <article class="hobby-card reveal-up delay-2">
+            <div class="card-icon-wrap">
+              <span class="card-icon">📚</span>
+            </div>
+            <h3 class="card-title">Học hỏi</h3>
+            <p class="card-desc">
+              Không ngừng tiếp thu kiến thức qua khóa học online, blog kỹ thuật,
+              podcast và tài liệu chuyên ngành mỗi ngày.
+            </p>
+          </article>
+
+          <!-- Card 3: Gaming -->
+          <article class="hobby-card reveal-up delay-3">
+            <div class="card-icon-wrap">
+              <span class="card-icon">🎮</span>
+            </div>
+            <h3 class="card-title">Gaming</h3>
+            <p class="card-desc">
+              Yêu thích các tựa game chiến thuật và nhập vai. Game giúp mình rèn
+              tư duy phân tích và khả năng ra quyết định nhanh.
+            </p>
+          </article>
+
+          <!-- Card 4: Reading -->
+          <article class="hobby-card reveal-up delay-4">
+            <div class="card-icon-wrap">
+              <span class="card-icon">📖</span>
+            </div>
+            <h3 class="card-title">Reading</h3>
+            <p class="card-desc">
+              Mê đọc sách về công nghệ, tư duy và phát triển cá nhân.
+              Sách yêu thích: <em>Clean Code</em>, <em>The Pragmatic Programmer</em>.
+            </p>
+          </article>
+
+        </div>
+        <!-- /hobby-grid -->
+
+      </div>
+    </section>
+    <!-- -------- /SECTION: HOBBY -------- -->
+
+  </main>
+  <!-- ===================== /MAIN ==================== -->
+
+
+  <!-- ===================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+
+      <!-- Liên kết mạng xã hội -->
+      <div class="footer-links">
+        <a href="mailto:tranhuy@example.com" class="footer-link" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M2 7l10 7 10-7"/>
+          </svg>
+          <span>Email</span>
+        </a>
+
+        <a href="https://github.com/tranhuy" target="_blank" rel="noopener" class="footer-link" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+
+        <a href="https://facebook.com/tranhuy" target="_blank" rel="noopener" class="footer-link" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
+          <span>Facebook</span>
+        </a>
+      </div>
+
+      <!-- Copyright -->
+      <p class="footer-copy">© 2026 Trần Huy. All rights reserved.</p>
+
+    </div>
+  </footer>
+  <!-- ==================== /FOOTER =================== -->
+
+
+  <!-- Nút mũi tên trở về đầu trang -->
+  <button class="back-to-top" id="backToTop" aria-label="Lên đầu trang" title="Lên đầu trang">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+
+
+  <!-- File JS chính -->
+  <script src="script.js"></script>
 </body>
 </html>
