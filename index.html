@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trần Huy | Portfolio</title>
+    <title>Trần Huy | Backend Engineer Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="header">
-        <div class="container header-inner">
+    <header id="header">
+        <div class="container header-content">
             <a href="#home" class="logo">Trần Huy</a>
             
-            <div class="mobile-menu-btn" id="mobileMenuBtn">
+            <div class="menu-toggle" id="mobile-menu">
                 <i class="fa-solid fa-book"></i>
             </div>
 
-            <nav class="nav" id="navMenu">
-                <ul class="nav-list">
+            <nav class="nav-menu" id="nav-menu">
+                <ul>
                     <li><a href="#home" class="nav-link active" data-target="home">Home</a></li>
                     <li><a href="#introduce" class="nav-link" data-target="introduce">Introduce</a></li>
                     <li><a href="#hobby" class="nav-link" data-target="hobby">Hobby</a></li>
@@ -31,45 +31,35 @@
     <main class="main-content">
         
         <section id="home" class="section active">
-            <div class="container flex-center col">
-                <div class="avatar-container">
-                    <img src="https://via.placeholder.com/200/007bff/ffffff?text=TH" alt="Trần Huy Avatar" class="avatar">
-                </div>
-                <h1 class="welcome-title">Xin chào, mình là <span>Trần Huy</span></h1>
-                <p class="short-desc">Sinh viên CNTT | Mục tiêu trở thành Backend Engineer</p>
-                <a href="mailto:emailcuaban@gmail.com" class="btn contact-btn">Contact Me</a>
+            <div class="container home-container text-center">
+                <img src="https://via.placeholder.com/200/007bff/ffffff?text=Huy" alt="Trần Huy" class="avatar">
+                <h1 class="welcome-title">Xin chào, mình là <span class="highlight">Trần Huy</span></h1>
+                <p class="subtitle">Sinh viên CNTT | Mục tiêu: Backend Engineer</p>
+                <p class="desc">Đam mê tối ưu hóa hệ thống, làm việc với CSDL và xây dựng các API mạnh mẽ, bảo mật.</p>
+                <a href="mailto:tranhuy@example.com" class="btn contact-btn">Contact Me</a>
             </div>
         </section>
 
         <section id="introduce" class="section">
-            <div class="container introduce-grid">
-                <div class="intro-text">
-                    <h2 class="section-title">Về Bản Thân</h2>
-                    <p>Mình là Trần Huy, một sinh viên ngành Công nghệ thông tin với niềm đam mê mãnh liệt dành cho việc xây dựng các hệ thống mạnh mẽ và tối ưu phía sau ứng dụng (Server-side). Tư duy logic, giải quyết vấn đề và viết clean code là những gì mình luôn hướng tới mỗi ngày.</p>
-                </div>
-                
-                <div class="skills-container">
-                    <h2 class="section-title">Kỹ Năng</h2>
-                    <div class="skill-box">
-                        <div class="skill-info">
-                            <span>Java / Spring Boot</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="progress-bar"><div class="progress" style="width: 85%;"></div></div>
+            <div class="container">
+                <h2 class="section-title">Giới thiệu bản thân</h2>
+                <div class="intro-grid">
+                    <div class="intro-text">
+                        <p>Mình hiện là sinh viên chuyên ngành Công nghệ thông tin. Với tư duy logic tốt và sự kiên trì, mình đang tập trung nghiên cứu sâu về kiến trúc phần mềm (Software Architecture), thiết kế cơ sở dữ liệu và quy trình phát triển sản phẩm chuyên nghiệp.</p>
                     </div>
-                    <div class="skill-box">
-                        <div class="skill-info">
-                            <span>Database (MySQL/PostgreSQL)</span>
-                            <span>80%</span>
+                    <div class="skills-wrapper">
+                        <div class="skill-item">
+                            <div class="skill-info"><span>Java / Spring Boot</span><span>85%</span></div>
+                            <div class="progress-bar"><div class="progress" style="width: 85%;"></div></div>
                         </div>
-                        <div class="progress-bar"><div class="progress" style="width: 80%;"></div></div>
-                    </div>
-                    <div class="skill-box">
-                        <div class="skill-info">
-                            <span>HTML, CSS & JavaScript</span>
-                            <span>70%</span>
+                        <div class="skill-item">
+                            <div class="skill-info"><span>MySQL / PostgreSQL</span><span>80%</span></div>
+                            <div class="progress-bar"><div class="progress" style="width: 80%;"></div></div>
                         </div>
-                        <div class="progress-bar"><div class="progress" style="width: 70%;"></div></div>
+                        <div class="skill-item">
+                            <div class="skill-info"><span>HTML, CSS, JS</span><span>70%</span></div>
+                            <div class="progress-bar"><div class="progress" style="width: 70%;"></div></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -77,27 +67,27 @@
 
         <section id="hobby" class="section">
             <div class="container">
-                <h2 class="section-title text-center">Sở Thích Của Mình</h2>
+                <h2 class="section-title text-center">Sở thích</h2>
                 <div class="hobby-grid">
                     <div class="hobby-card">
-                        <i class="fa-solid fa-code"></i>
+                        <i class="fa-solid fa-code icon"></i>
                         <h3>Coding</h3>
-                        <p>Thực hành thuật toán và tối ưu hóa hệ thống.</p>
+                        <p>Thử thách bản thân với các thuật toán mới.</p>
                     </div>
                     <div class="hobby-card">
-                        <i class="fa-solid fa-lightbulb"></i>
+                        <i class="fa-solid fa-lightbulb icon"></i>
                         <h3>Học hỏi</h3>
-                        <p>Luôn cập nhật công nghệ và kiến trúc phần mềm mới.</p>
+                        <p>Tìm hiểu các công nghệ backend hiện đại.</p>
                     </div>
                     <div class="hobby-card">
-                        <i class="fa-solid fa-gamepad"></i>
+                        <i class="fa-solid fa-gamepad icon"></i>
                         <h3>Gaming</h3>
-                        <p>Giải trí và rèn luyện phản xạ, tư duy chiến thuật.</p>
+                        <p>Rèn luyện tư duy phản xạ và chiến thuật.</p>
                     </div>
                     <div class="hobby-card">
-                        <i class="fa-solid fa-book-open"></i>
+                        <i class="fa-solid fa-book-open icon"></i>
                         <h3>Reading</h3>
-                        <p>Đọc sách chuyên ngành và phát triển bản thân.</p>
+                        <p>Đọc tài liệu chuyên ngành và phát triển bản thân.</p>
                     </div>
                 </div>
             </div>
@@ -105,18 +95,20 @@
 
     </main>
 
-    <footer class="footer">
-        <div class="container flex-center col">
+    <footer id="footer">
+        <div class="container text-center">
             <div class="social-links">
-                <a href="mailto:emailcuaban@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a>
-                <a href="https://github.com/yourgithub" target="_blank"><i class="fa-brands fa-github"></i></a>
-                <a href="https://facebook.com/yourfacebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                <a href="mailto:tranhuy@example.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://github.com/tranhuy" title="GitHub" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="https://facebook.com/tranhuy" title="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
             </div>
-            <p class="copyright">Copyright © 2026 Trần Huy - Thiết kế tối giản, nền tối.</p>
+            <p class="copyright">Copyright &copy; 2026 Trần Huy - Designed with Minimal Style.</p>
         </div>
     </footer>
 
-    <button id="backToTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
+    <button id="back-to-top" title="Lên đầu trang">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
 
     <script src="script.js"></script>
 </body>
