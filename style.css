@@ -11,7 +11,7 @@
 
 /* Đảm bảo nav-menu luôn hiển thị trên Desktop */
 .nav-menu {
-    display: block;
+    display: flex;
 }
 
 /* Fix lỗi hiển thị section */
@@ -53,3 +53,4 @@
         z-index: 999;
     }
 }
+
